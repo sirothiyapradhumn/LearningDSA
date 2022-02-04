@@ -9,6 +9,9 @@ public class Main{
             for(int j = 0; j<=i; j++){
                 System.out.print(val+"\t");
                 val = ((val * (i-j)) / (j+1));
+                
+                //Binomial cofficent
+                //newvalue = (oldvalue * (i-j) / j+1 )
             }
             
             System.out.println();
