@@ -12,7 +12,9 @@ public static void reverse(int a[], int left , int right){
 
   public static void rotate(int[] a, int k){
 
+    // jab k ki value arr.length sai jyda ho
     k = k % a.length;
+    // when k's value is in negative
     if(k<0){
       k = k + a.length;
     }
