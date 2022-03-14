@@ -12,10 +12,10 @@ public class Main {
     }
 
     public static int power(int x, int n){
-        if(n==0) return 1;
+        if(n==0) return 1; //base condition
         
-        int pow = power(x, n-1);
-        int ans = pow * x;
+        int pow = power(x, n-1);//fatih
+        int ans = pow * x;//my work
         return ans;
     }
 
