@@ -35,7 +35,7 @@ public class Main {
     ans[0] = -1;
 
     for(int i = 1; i<n; i++){
-      //pop all the smaller element
+      //pop all the Greater element
 
       while(st.size()!=0 && arr[i]<st.peek()){
         st.pop();
