@@ -68,19 +68,15 @@ public class Main {
   }
 
   public static int height(Node node) {
-    int h = -1;
-
-    for (Node child : node.children) {
-      int ch = height(child);
-      h = Math.max(h, ch);
-    }
-    h += 1;
-
-    return h;
-  }
-
-  public static void traversals(Node node){
     // write your code here
+    int ht = -1;
+
+    for(Node child : node.children){
+      ht = height(child);
+    }
+    
+   // int max = Math.max(ht, )
+    return ht+1;
   }
 
   public static void main(String[] args) throws Exception {
@@ -93,7 +89,9 @@ public class Main {
     }
 
     Node root = construct(arr);
-    traversals(root);
+    int h = height(root);
+    System.out.println(h);
+    // display(root);
   }
 
 }
