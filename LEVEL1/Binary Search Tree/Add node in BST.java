@@ -89,7 +89,7 @@ public class Main {
     if(node.data > data){
       node.left =  add(node.left, data);
     }
-    else{
+    else if(node.data < data){
       node.right =  add(node.right, data);
     }
 
