@@ -46,17 +46,19 @@ public static void main(String[] args) throws Exception {
 
     HashSet<Integer> set= new HashSet<>();
 
+    //add all a1 array unique values in set
     for(int i = 0; i<n1; i++){
         set.add(a1[i]);
     }
 
+    //print common values present in a2
     for(int i =0; i<n2; i++){
         if(set.contains(a2[i]) == true){
             System.out.println(a2[i]);
             set.remove(a2[i]);
         }
     }
-    
+
  }
 
 }
