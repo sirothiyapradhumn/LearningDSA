@@ -6,7 +6,7 @@ public class Main {
     public static boolean IsQueenSafe(boolean[][] chess, int row, int col) {
         // write your code here
 
-        //left vertical
+        //left horizontal
         for(int j = col; j>=0; j--){
             if(chess[row][j] == true){
                 return false;
@@ -20,7 +20,7 @@ public class Main {
             }
         }
 
-        // horizontal
+        // vertical
         for(int i = row; i>=0; i--){
             if(chess[i][col] == true){
                 return false;
