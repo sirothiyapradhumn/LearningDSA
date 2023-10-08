@@ -254,18 +254,16 @@ function printMazePathJump(sc, sr, ec, er, ans) {
     console.log(ans);
     return 1;
   }
-  if (sc > ec || sr > er) {
-    return 0; // Base case to stop recursion
-  }
+
 
   let count = 0;
-  for (let i = 1; i <= ec - sc; i++) { // Corrected loop condition
+  for (let i = 1; i <= ec - sc; i++) {
     count += printMazePathJump(sc + i, sr, ec, er, ans + "H" + i);
   }
-  for (let i = 1; i <= ec - sc && i <= er - sr; i++) { // Corrected loop conditions
+  for (let i = 1; i <= ec - sc && i <= er - sr; i++) { 
     count += printMazePathJump(sc + i, sr + i, ec, er, ans + "D" + i);
   }
-  for (let i = 1; i <= er - sr; i++) { // Corrected loop condition
+  for (let i = 1; i <= er - sr; i++) {
     count += printMazePathJump(sc, sr + i, ec, er, ans + "V" + i);
   }
 
