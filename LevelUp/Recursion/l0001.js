@@ -7,6 +7,8 @@ const printDec = (num) => {
 }
 // printDec(5);
 
+/*--------------------------------------------------------------------- */
+
 function printInc(num) {
   if(num === 0) {
     return;
@@ -15,6 +17,8 @@ function printInc(num) {
   console.log(num);
 }
 // printInc(5);
+
+/*--------------------------------------------------------------------- */
 
 function printEvenOdd(num) {
   if(num === 0) {
@@ -26,6 +30,7 @@ function printEvenOdd(num) {
 }
 // printEvenOdd(10);
 
+/*--------------------------------------------------------------------- */
 
 function factorial(num) {
   if(num === 0) {
@@ -35,6 +40,8 @@ function factorial(num) {
 }
 // console.log(factorial(5));
 
+/*--------------------------------------------------------------------- */
+
 function power(num1, num2) {
   if(num2 === 0) {
     return  1;
@@ -43,6 +50,8 @@ function power(num1, num2) {
   return power(num1, num2-1)*num1;
 }
 // console.log(power(2,4));
+
+/*--------------------------------------------------------------------- */
 
 function printTreePath(num) {
   if(num === 1 || num === 0){
@@ -64,6 +73,7 @@ function printTreePath(num) {
 }
 // console.log(printTreePath(5));
 
+/*--------------------------------------------------------------------- */
 
 function arrayDisplay(arr, idx) {
   if(idx === arr.length){
@@ -75,6 +85,8 @@ function arrayDisplay(arr, idx) {
 // const tempArr = [10, 20 ,30 ,40, 50, 60];
 // arrayDisplay(tempArr, 0);
 
+/*--------------------------------------------------------------------- */
+
 function maxEleArr(arr, idx) {
   if(idx === arr.length){
     return -Infinity;
@@ -82,6 +94,8 @@ function maxEleArr(arr, idx) {
   return Math.max(maxEleArr(arr, idx+1), arr[idx]);
 }
 // console.log(maxEleArr([10, 60 ,30 ,40, 50, 10], 0));
+
+/*------------------------------------------------------------------------------------- */
 
 function maxEleArr(arr, idx) {
   if(idx === arr.length){
@@ -91,6 +105,8 @@ function maxEleArr(arr, idx) {
 }
 // console.log(maxEleArr([10, 60 ,30 ,40, 50, 7], 0));
 
+/*------------------------------------------------------------------------------------- */
+
 function firstIdxNum(arr, idx, num) {
   if(idx === arr.length){
     return -Infinity;
@@ -99,6 +115,8 @@ function firstIdxNum(arr, idx, num) {
   return firstIdxNum(arr, idx+1, num);
 }
 // console.log(firstIdxNum([60, 10 ,30 ,40, 50, 10], 0, 10));
+
+/*------------------------------------------------------------------------------------- */
 
 function lastIdxNum(arr, idx, num) {
   if(idx === arr.length){
@@ -112,6 +130,8 @@ function lastIdxNum(arr, idx, num) {
 }
 // console.log(lastIdxNum([60, 10 ,30 ,40, 10, 50], 0, 10));
 
+/*------------------------------------------------------------------------------------- */
+
 function allIndexNum(arr, idx, num) {
   if(idx === arr.length){
     return new Array;
@@ -123,6 +143,8 @@ function allIndexNum(arr, idx, num) {
   return smallAns;
 }
 // console.log(allIndexNum([60, 10 ,10 ,30, 50, 10], 0, 10));
+
+/*------------------------------------------------------------------------------------- */
 
 function stringSubSequance(str, idx, ans) {
   if(str.length === idx){
@@ -136,6 +158,8 @@ function stringSubSequance(str, idx, ans) {
   return count;
 }
 // console.log(stringSubSequance('abc', 0, ""));
+
+/*------------------------------------------------------------------------------------- */
 
 //LC(91)-- TLE -- DP sai hoga
 const decodingwAYS = (str, idx) => {
@@ -156,6 +180,8 @@ const decodingwAYS = (str, idx) => {
   return count;
 };
 // console.log(decodingwAYS('123', 0));
+
+/*------------------------------------------------------------------------------------- */
 
 let codes = [".;", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tu", "vwx", "yz", "+-*", "/%^"];
 
@@ -186,6 +212,8 @@ function getKPC(str, idx, ans){
 // console.log(getKPC('789', 0, ""));
 // console.log(getKPC('107', 0, ""));
 
+/*------------------------------------------------------------------------------------- */
+
 function printPermutation(str, ans){
   if(str.length === 0) {
     console.log(ans);
@@ -203,6 +231,8 @@ function printPermutation(str, ans){
 };
 // console.log(printPermutation('abc',''));
 // console.log(printPermutation('aba',''));
+
+/*------------------------------------------------------------------------------------- */
 
 function printUniquePermutation(str, ans){
   if(str.length === 0) {
@@ -227,6 +257,8 @@ function printUniquePermutation(str, ans){
 // console.log(printUniquePermutation('abc',''));
 // console.log(printUniquePermutation('abaa',''));
 
+/*------------------------------------------------------------------------------------- */
+
 function printMazePath(sc, sr, ec, er, ans) {
   if(sc === ec && sr === er) {
     console.log(ans);
@@ -237,9 +269,9 @@ function printMazePath(sc, sr, ec, er, ans) {
   if(sc+1 <= ec){
     count += printMazePath(sc+1, sr, ec ,er, ans+"H");
   }
-  // if(sc+1 <= ec && sr+1 <= er){
-  //   count += printMazePath(sc+1, sr+1, ec ,er, ans+"D");
-  // }
+  if(sc+1 <= ec && sr+1 <= er){
+    count += printMazePath(sc+1, sr+1, ec ,er, ans+"D");
+  }
   if(sr+1 <= er){
     count += printMazePath(sc, sr+1, ec ,er, ans+"V");
   }
@@ -248,6 +280,7 @@ function printMazePath(sc, sr, ec, er, ans) {
 }
 // console.log(printMazePath(0, 0, 3, 3, ""));
 
+/*------------------------------------------------------------------------------------- */
 
 function printMazePathJump(sc, sr, ec, er, ans) {
   if (sc === ec && sr === er) {
@@ -270,4 +303,6 @@ function printMazePathJump(sc, sr, ec, er, ans) {
   return count;
 }
 // console.log(printMazePathJump(0, 0, 3, 3, ""));
+
+/*------------------------------------------------------------------------------------- */
 
