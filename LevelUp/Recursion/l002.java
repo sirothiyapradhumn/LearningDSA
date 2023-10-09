@@ -238,7 +238,7 @@ public class Main {
       
       if(r >= 0 && c >= 0 && r<=dr && c<=dc && !vis[r][c]) {
         pair recAns = longestPathRecu(r, c, dr, dc, vis, dir, dirS);
-        //(recAns.longestPathLength+1 > myAns.longestPathLength) // change for shortestpath
+        //(recAns.longestPathLength+1 < myAns.longestPathLength) // change for shortestpath
         if(recAns.longestPathLength+1 > myAns.longestPathLength) {  
           myAns.longestPathLength = recAns.longestPathLength+1;
           myAns.longestPath = dirS[d] + recAns.longestPath;

@@ -420,3 +420,101 @@ class Solution {
       return res;
   }
 }
+
+/*------------------------------------------------------------------------------------- */
+
+class pair {
+  constructor(longestPathLength, longestPath) {
+    this.longestPathLength = longestPathLength;
+    this.longestPath = longestPath;
+  }
+}
+
+function longestPathRecu(sr, sc, er, ec, vis, dir, dirS) {
+  if(sr === er && sc === ec) {
+    return new pair(0, '');
+  }
+
+  let myAns = new pair(-1, '');
+  vis[sr][sc] = true;
+  for(let d = 0; d < dir.length; d++) {
+    let r = sr + dir[d][0];
+    let c = sc + dir[d][1];
+    if(r >=0 && c >=0 && r<=er && c<=ec && !vis[r][c]) {
+      let recAns = longestPathRecu(r, c, er, ec, vis, dir, dirS);
+
+      if(recAns.longestPathLength+1 > myAns.longestPathLength) {
+        myAns.longestPathLength = recAns.longestPathLength+1;
+        myAns.longestPath = dirS[d] + recAns.longestPath;
+      }
+    }
+  }
+
+  vis[sr][sc] = false;
+
+  return myAns;
+}
+
+function showAns() {
+  let vis = Array.from({ length: 3 }, () => Array(3).fill(false));
+  let dir = [
+    [0, 1],
+    [1, 0],
+    [0, -1],
+    [-1, 0]
+  ];
+  let dirS = ["R", "D", "L", "U"];
+  return longestPathRecu(0, 0, 2, 2, vis, dir, dirS);
+}
+
+// console.log(showAns());
+
+/*------------------------------------------------------------------------------------- */
+
+class pairOne {
+  constructor(shortestPathLength, shortestPath) {
+    this.shortestPathLength = shortestPathLength;
+    this.shortestPath = shortestPath;
+  }
+}
+
+function shortestPathRecu(sr, sc, er, ec, vis, dir, dirS) {
+  if(sr === er && sc === ec) {
+    return new pairOne(0, '');
+  }
+
+  let myAns = new pairOne(Infinity, '');
+  vis[sr][sc] = true;
+  for(let d = 0; d < dir.length; d++) {
+    let r = sr + dir[d][0];
+    let c = sc + dir[d][1];
+    if(r >=0 && c >=0 && r<=er && c<=ec && !vis[r][c]) {
+      let recAns = shortestPathRecu(r, c, er, ec, vis, dir, dirS);
+
+      if(recAns.shortestPathLength+1 < myAns.shortestPathLength) {
+        myAns.shortestPathLength = recAns.shortestPathLength+1;
+        myAns.shortestPath = dirS[d] + recAns.shortestPath;
+      }
+    }
+  }
+
+  vis[sr][sc] = false;
+
+  return myAns;
+}
+
+function showAns() {
+  let vis = Array.from({ length: 3 }, () => Array(3).fill(false));
+  let dir = [
+    [0, 1],
+    [1, 0],
+    [0, -1],
+    [-1, 0]
+  ];
+  let dirS = ["R", "D", "L", "U"];
+  return shortestPathRecu(0, 0, 2, 2, vis, dir, dirS);
+}
+
+// console.log(showAns());
+
+/*------------------------------------------------------------------------------------- */
