@@ -306,3 +306,117 @@ function printMazePathJump(sc, sr, ec, er, ans) {
 
 /*------------------------------------------------------------------------------------- */
 
+function floodFill (sr, sc, er, ec, boolVisArr, dir2Darr, dirS, ans) {
+  if(sr === er && sc === ec) {
+    console.log(ans);
+    return 1;
+  }
+
+  let count = 0;
+  let n = boolVisArr.length;
+  let m = boolVisArr[0].length;
+  boolVisArr[sr][sc] = true;
+
+  for(let d =0; d<dir2Darr.length; d++) {
+    let r = sr+dir2Darr[d][0];
+    let c = sc+dir2Darr[d][1];
+
+    if(r>=0 && c>=0 && r<n && c<m && !boolVisArr[r][c]) {
+      count += floodFill(r, c, er, ec, boolVisArr, dir2Darr, dirS, ans+dirS[d]);
+    }
+  }
+
+  boolVisArr[sr][sc] = false;
+  return count;
+}
+
+function floodFillwithJump (sr, sc, er, ec, boolVisArr, dir2Darr, dirS, ans) {
+  if(sr === er && sc === ec) {
+    console.log(ans);
+    return 1;
+  }
+
+  let count = 0;
+  let n = boolVisArr.length;
+  let m = boolVisArr[0].length;
+  boolVisArr[sr][sc] = true;
+
+  for(let d =0; d<dir2Darr.length; d++) {
+    for(let rad = 0; rad<=Math.max(n,m); rad++) {
+      let r = sr + rad*dir2Darr[d][0];
+      let c = sc + rad*dir2Darr[d][1];
+
+      if(r>=0 && c>=0 && r<n && c<m) {
+        if(!boolVisArr[r][c]) {
+          count += floodFillwithJump(r, c, er, ec, boolVisArr, dir2Darr, dirS, ans+dirS[d]+rad);
+        }
+      } else {
+        break;
+      }
+    }
+  }
+
+  boolVisArr[sr][sc] = false;
+  return count;
+}
+
+function floodFillQuestions() {
+  let vis = Array.from({ length: 3 }, () => Array(3).fill(false));
+  
+  // let dir = [[1,0], [0,1], [1,1]];
+  // let dirS = ['V', 'H', 'D'];
+  // let res = floodFill(0, 0, 2, 2, vis, dir, dirS, "");
+
+  let dir = [[1,0], [-1,0], [1,1], [-1,-1], [0,1], [0,-1], [-1,1],[1,-1]];
+  let dirS = ['D', 'U', 'S', 'N', 'R', 'L', 'E', 'W'];
+  let res = floodFillwithJump(0, 0, 2, 2, vis, dir, dirS, "");
+
+  return res;
+} 
+
+// console.log(floodFillQuestions());
+
+/*------------------------------------------------------------------------------------- */
+
+// https://practice.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
+class Solution {
+    
+  findPath(m,n){
+      let res = [];
+      if (n === 0 || m[0][0] === 0 || m[n - 1][n - 1] === 0) {
+          return res;
+      }
+          
+      const dir = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+      const dirS = ["U", "D", "L", "R"];
+      
+      
+      function floodFill (sr, sc, er, ec, visArr, dir2Darr, dirS, ans) {
+        if(sr === er && sc === ec) {
+          res.push(ans);
+          return 1;
+        }
+      
+        let count = 0;
+        let n = visArr.length;
+        let m = visArr[0].length;
+        visArr[sr][sc] = 0;
+      
+        for(let d =0; d<dir2Darr.length; d++) {
+          let r = sr+dir2Darr[d][0];
+          let c = sc+dir2Darr[d][1];
+      
+          if(r>=0 && c>=0 && r<n && c<m && visArr[r][c] != 0) {
+            count += floodFill(r, c, er, ec, visArr, dir2Darr, dirS, ans+dirS[d]);
+          }
+        }
+      
+        visArr[sr][sc] = 1;
+        return count;
+      }
+      
+      floodFill(0, 0, n - 1, n - 1, m, dir, dirS, "");
+      res.sort();
+      return res;
+  }
+}
