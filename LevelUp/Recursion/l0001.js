@@ -514,7 +514,174 @@ function showAns() {
   let dirS = ["R", "D", "L", "U"];
   return shortestPathRecu(0, 0, 2, 2, vis, dir, dirS);
 }
-
 // console.log(showAns());
 
 /*------------------------------------------------------------------------------------- */
+
+function ccPermutationInfi(arr, tar, ans) {
+  if(tar === 0) {
+    console.log(ans);
+    return 1;
+  }
+  
+  let count  = 0;
+  
+  for(let i = 0; i<arr.length; i++) {
+    if(tar - arr[i] >= 0) {
+      count += ccPermutationInfi(arr, tar - arr[i], ans + arr[i]);
+    }
+  }
+  
+  return count;
+}
+// console.log(ccPermutationInfi([2,3,5,7], 10, ''));
+
+/*------------------------------------------------------------------------------------- */
+
+function ccCombinationInfi(arr, idx, tar, ans) {
+  if(tar === 0) {
+    console.log(ans);
+    return 1;
+  }
+  
+  let count  = 0;
+  
+  for(let i = idx; i<arr.length; i++) {
+    if(tar - arr[i] >= 0) {
+      count += ccCombinationInfi(arr, i, tar - arr[i], ans + arr[i]);
+    }
+  }
+  
+  return count;
+}
+// console.log(ccCombinationInfi([2,3,5,7], 0, 10, ''));
+
+/*------------------------------------------------------------------------------------- */
+
+function ccCombinationSingle(arr, idx, tar, ans) {
+  if(tar === 0) {
+    console.log(ans);
+    return 1;
+  }
+  
+  let count  = 0;
+  
+  for(let i = idx; i<arr.length; i++) {
+    if(tar - arr[i] >= 0) {
+      count += ccCombinationSingle(arr, i+1, tar - arr[i], ans + arr[i]);
+    }
+  }
+  
+  return count;
+}
+// console.log(ccCombinationSingle([2,3,5,7], 0, 10, ''));
+
+/*------------------------------------------------------------------------------------- */
+
+function ccPermutationSingle(arr, tar, ans) {
+  if(tar === 0) {
+    console.log(ans);
+    return 1;
+  }
+  
+  let count  = 0;
+  
+  for(let i = 0; i<arr.length; i++) {
+    let ele = arr[i];
+    if(tar - ele >= 0 &&  arr[i] > 0) {
+      arr[i]  = -arr[i];
+      count += ccPermutationSingle(arr, tar - ele, ans + ele);
+      arr[i]  = -arr[i];
+    }
+  }
+  
+  return count;
+}
+// console.log(ccPermutationSingle([2,3,5,7], 10, ''));
+
+/*------------------------------------------------------------------------------------- */
+
+function ccPermutationInfiSubSeq(arr, idx, tar, ans) {
+  if(arr.length === idx || tar ===0) {
+    if(tar === 0 ){
+      console.log(ans);
+      return 1;
+    }
+    return 0;
+  }
+  
+  let count  = 0;
+  if(tar - arr[idx] >=0) {
+    count += ccPermutationInfiSubSeq(arr, 0, tar - arr[idx], ans+arr[idx]);
+  }
+  count += ccPermutationInfiSubSeq(arr, idx+1, tar, ans);
+  
+  return count;
+}
+// console.log(ccPermutationInfiSubSeq([2,3,5,7], 0, 10, ''));
+
+/*------------------------------------------------------------------------------------- */
+
+function ccCombinationInfiSubSeq(arr, idx, tar, ans) {
+  if(arr.length === idx || tar ===0) {
+    if(tar === 0 ){
+      console.log(ans);
+      return 1;
+    }
+    return 0;
+  }
+  
+  let count  = 0;
+  if(tar - arr[idx] >=0) {
+    count += ccCombinationInfiSubSeq(arr, idx, tar - arr[idx], ans+arr[idx]);
+  }
+  count += ccCombinationInfiSubSeq(arr, idx+1, tar, ans);
+  
+  return count;
+}
+// console.log(ccCombinationInfiSubSeq([2,3,5,7], 0, 10, ''));
+
+/*------------------------------------------------------------------------------------- */
+
+function ccCombinationSingleSubSeq(arr, idx, tar, ans) {
+  if(arr.length === idx || tar ===0) {
+    if(tar === 0 ){
+      console.log(ans);
+      return 1;
+    }
+    return 0;
+  }
+  
+  let count  = 0;
+  if(tar - arr[idx] >=0) {
+    count += ccCombinationSingleSubSeq(arr, idx+1, tar - arr[idx], ans+arr[idx]);
+  }
+  count += ccCombinationSingleSubSeq(arr, idx+1, tar, ans);
+  
+  return count;
+}
+// console.log(ccCombinationSingleSubSeq([2,3,5,7], 0, 10, ''));
+
+/*------------------------------------------------------------------------------------- */
+
+function ccPermutationSingleSubSeq(arr, idx, tar, ans) {
+  if(arr.length === idx || tar ===0) {
+    if(tar === 0 ){
+      console.log(ans);
+      return 1;
+    }
+    return 0;
+  }
+  
+  let count  = 0;
+  let ele = arr[idx];
+  if(tar - ele >=0 && arr[idx] > 0) {
+    arr[idx] = -arr[idx];
+    count += ccPermutationSingleSubSeq(arr, 0, tar - ele, ans+ele);
+    arr[idx] = -arr[idx];
+  }
+  count += ccPermutationSingleSubSeq(arr, idx+1, tar, ans);
+  
+  return count;
+}
+// console.log(ccPermutationSingleSubSeq([2,3,5,7], 0, 10, ''));
