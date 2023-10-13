@@ -685,3 +685,128 @@ function ccPermutationSingleSubSeq(arr, idx, tar, ans) {
   return count;
 }
 // console.log(ccPermutationSingleSubSeq([2,3,5,7], 0, 10, ''));
+
+/*------------------------------------------------------------------------------------- */
+
+//LC :-39
+var combinationSum = function(arr, tar) {
+  let res = [];
+  let subRes = [];
+  combinationInfisubSeq(arr, 0, tar, subRes, res);
+  return res;
+};
+
+function combinationInfisubSeq(arr, idx, tar, subRes, res) {
+  if(arr.length === idx || tar === 0) {
+    if(tar === 0) {
+      // console.log(subRes);
+      res.push([...subRes]);
+    }
+    return;
+  }
+
+
+  if(tar - arr[idx] >= 0) {
+    subRes.push(arr[idx]);
+    combinationInfisubSeq(arr, idx, tar-arr[idx], subRes, res);
+    subRes.pop();
+  }
+  combinationInfisubSeq(arr, idx+1, tar, subRes, res);
+}
+
+/*------------------------------------------------------------------------------------- */
+
+//LC :- 40
+var combinationSum2 = function(arr, tar) {
+  let res =[];
+  let subRes=[];
+  arr.sort((a,b) => a-b);
+
+  function combinationSingle(arr, idx, tar, subRes) {
+  if(tar === 0) {
+    res.push([...subRes]);
+    return;
+  }
+
+  let prev = -1;
+
+  for(let i = idx; i<arr.length; i++) {
+    if(prev !== -1 && arr[prev] === arr[i]) continue;
+
+    if(tar - arr[i] >= 0) {
+      subRes.push(arr[i]);
+      combinationSingle(arr, i+1, tar-arr[i], subRes);
+      subRes.pop();
+    }
+    prev = i;
+  }
+}
+  combinationSingle(arr, 0, tar, subRes);
+  return res;
+};
+
+/*------------------------------------------------------------------------------------- */
+
+//LC :- 46
+
+var permute = function(nums) {
+  let res = [];
+  let subRes = [];
+
+  function dfs( count, vis) {
+    if(count === nums.length) {
+      res.push([...subRes]);
+      return;
+    }
+
+    for(let i = 0; i<nums.length; i++) {
+      if(!vis[i]) {
+        vis[i] = true;
+        subRes.push(nums[i]);
+        dfs(count+1, vis);
+        subRes.pop();
+        vis[i] = false;
+      }
+    }
+  }
+
+  let vis = Array(nums.length).fill(false);
+  dfs(0, vis);
+  return res;
+};
+
+
+/*------------------------------------------------------------------------------------- */
+
+//LC :- 47
+
+var permuteUnique = function(nums) {
+  let res = [];
+  let subRes = [];
+  nums.sort((a,b) => a-b);
+
+  function dfs(count, vis) {
+    if(count === nums.length) {
+      res.push([...subRes]);
+      return; 
+    }
+    
+    let prev = -1;
+    for(let i =0; i<nums.length; i++) {
+      if(prev !=-1 && nums[prev] === nums[i] ) continue;
+
+      if(!vis[i]) {
+        vis[i] = true;
+        subRes.push(nums[i]);
+        dfs(count+1, vis);
+        subRes.pop();
+        vis[i] = false;
+        prev = i;
+      }
+    }
+  }
+
+  let vis = Array(nums.length).fill(false);
+  dfs(0, vis);
+  return res;
+};
