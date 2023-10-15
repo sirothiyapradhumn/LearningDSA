@@ -810,3 +810,52 @@ var permuteUnique = function(nums) {
   dfs(0, vis);
   return res;
 };
+
+/*------------------------------------------------------------------------------------- */
+
+//LC :- 216
+var combinationSum3 = function(k, n) {
+  let res = [];
+  let subRes = [];
+
+  function dfs(idx, tar) {
+    if(tar === 0 && subRes.length === k) {
+      res.push([...subRes]);
+      return;
+    }
+
+    for(let i = idx; i <=9; i++) {
+      if(tar - i >= 0) {
+        subRes.push(i);
+        dfs(i+1, tar-i);
+        subRes.pop();
+      }
+    }
+  }
+
+  dfs(1, n);
+  return res;
+};
+
+/*------------------------------------------------------------------------------------- */
+
+//LC :- 77
+var combine = function(n, k) {
+  let res = [];
+  let subRes = []
+
+  function dfs(idx, count){
+    if(count === k) {
+      res.push([...subRes]);
+      return;
+    }
+    for(let i = idx; i<=n; i++) {
+      subRes.push(i);
+      dfs(i+1, count+1);
+      subRes.pop();
+    }
+  };
+
+  dfs(1, 0);
+  return res;
+};
