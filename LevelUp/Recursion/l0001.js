@@ -859,3 +859,171 @@ var combine = function(n, k) {
   dfs(1, 0);
   return res;
 };
+
+/*------------------------------------------------------------------------------------- */
+
+//n queens questions start
+
+// tnq : total no. of queen, qpsf : queen placed so far
+// tnb : total no. of boxes,  bno: box no.
+
+function queenCombination1D (tnb, bno, tnq, qpsf, ans) {
+  if(tnq === qpsf) {
+    console.log(ans);
+    return 1;
+  }
+  
+  let count = 0;
+  
+  for(let b = bno; b<tnb; b++) {
+    count += queenCombination1D(tnb, b+1, tnq, qpsf+1, ans+"b"+b+"q"+qpsf+" ")
+  }
+  
+  return count;
+}
+
+// console.log(queenCombination1D(5, 0, 3, 0, ''));
+
+/*
+Output:
+
+b0q0 b1q1 b2q2 
+b0q0 b1q1 b3q2 
+b0q0 b1q1 b4q2 
+b0q0 b2q1 b3q2 
+b0q0 b2q1 b4q2 
+b0q0 b3q1 b4q2 
+b1q0 b2q1 b3q2 
+b1q0 b2q1 b4q2 
+b1q0 b3q1 b4q2 
+b2q0 b3q1 b4q2 
+10
+*/
+
+
+/*------------------------------------------------------------------------------------- */
+
+function queenPermutaion1D(tnb, tnq, qpsf, ans) {
+  if(tnq === qpsf) {
+    console.log(ans);
+    return 1;
+  }
+
+  let count = 0;
+  
+  for(let b = 0; b < tnb.length; b++){
+    if(!tnb[b]){
+      tnb[b] = true;
+      count += queenPermutaion1D(tnb, tnq, qpsf+1, ans+'b'+b+'q'+qpsf+' ');
+      tnb[b] = false;
+    }
+    
+  }
+
+  return count;
+};
+
+// let tnb = Array(5).fill(false);
+// console.log(queenPermutaion1D(tnb,3, 0, ''));  
+//o/p - 60
+
+/*------------------------------------------------------------------------------------- */
+
+function queenCombination2D(tnb, idx, tnq, ans) {
+  if(tnq === 0) {
+    console.log(ans);
+    return 1;
+  }
+
+  let count = 0;
+  let n = tnb.length;
+  let m = tnb[0].length;
+
+  for( let i = idx; i < n * m; i++) {
+    let r = Math.floor(i / m);
+    let c = i % m;
+    count += queenCombination2D(tnb, i+1, tnq-1, ans+'('+r+', '+c+') ');
+  }
+  return count;
+};
+
+// let tnb = new Array(4).fill().map(() => new Array(4).fill(false));
+// console.log(queenCombination2D(tnb, 0, 4, ''));
+
+/*------------------------------------------------------------------------------------- */
+
+
+function queenPermutaion2D(tnb, tnq, ans) {
+  if(tnq === 0) {
+    console.log(ans);
+    return 1;
+  }
+
+  let count = 0;
+  let n = tnb.length;
+  let m = tnb[0].length;
+
+  for( let i = 0; i < n * m; i++) {
+    let r = Math.floor(i / m);
+    let c = i % m;
+    if(!tnb[r][c]) {
+      tnb[r][c] = true;
+      count += queenPermutaion2D(tnb, tnq-1, ans+'('+r+', '+c+') ');
+      tnb[r][c] = false;
+    }
+  }
+  return count;
+};
+
+// let tnb = Array.from({ length: 4 }, () => Array(4).fill(false));
+// console.log(tnb)
+// console.log(queenPermutaion2D(tnb, 4, ''));
+
+/*------------------------------------------------------------------------------------- */
+
+function isSafeToPlaceQueen(boxes, r, c) {
+  let dir = [ [0,-1], [-1,-1], [-1,0], [-1,1] ];
+  for(let d = 0; d<dir.length; d++) {
+    for(let rad = 1; rad<boxes.length; rad++) {
+      let x = r + rad * dir[d][0];
+      let y = c + rad * dir[d][1];
+
+      if( x >= 0 && y >= 0 && x < boxes.length && y < boxes[0].length) {
+        if(boxes[x][y]){
+          return false;
+        }
+      } else {
+        break;
+      }
+    }
+  }
+
+  return true;
+};
+
+function NQueenCombination(boxes, idx, tnq, ans) {
+  if(tnq === 0) {
+    console.log(ans);
+    return 1;
+  }
+
+  let count = 0 ;
+  let n = boxes.length;
+  let m = boxes[0].length;
+
+  for(let i = idx; i < m*n; i++) {
+    let r = Math.floor(i/m);
+    let c = i%m;
+    if(isSafeToPlaceQueen(boxes, r, c)) {
+      boxes[r][c] = true;
+      count += NQueenCombination(boxes, i+1, tnq-1, ans+'('+r+', '+c+') ');
+      boxes[r][c] = false;
+    }
+  }
+
+  return count;
+};
+
+
+let boxes = Array(4).fill().map(() => Array(4).fill(false));
+console.log(NQueenCombination(boxes, 0, 4, ''));
