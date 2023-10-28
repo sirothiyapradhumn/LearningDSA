@@ -1101,3 +1101,28 @@ let diagArray = Array(n + n -1).fill(false);
 let antiDiagArray = Array(n + n -1).fill(false);
 // let boxes = Array(n).fill().map(() => Array(n).fill(false));
 // console.log(NQueen3_Permutation(boxes, n, ''));
+
+/*-------------------------------------------------------------------------------------*/
+
+//nQueen 4c4 optimised
+function nQueen4(n, r, tnq, ans) {
+  if(tnq === 0) {
+    console.log(ans);
+    return 1; 
+  }
+
+  let count = 0;
+  for(let c =0; c < n; c++) {
+    if(!rowArray[r] && !colArray[c] && !diagArray[r-c+n-1] && !antiDiagArray[r+c]) {
+      toggleNQueen(r,c,n);
+      count += nQueen4(n, r+1, tnq-1, ans+'('+r+', '+c+') ');
+      toggleNQueen(r,c,n);
+    }
+  }
+
+  return count;
+}
+
+// console.log(nQueen4(n, 0, n, ''));
+
+/*-------------------------------------------------------------------------------------*/
