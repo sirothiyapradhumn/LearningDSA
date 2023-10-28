@@ -1056,9 +1056,48 @@ function NQueen2(n, idx, tnq, ans) {
   return count;
 }
 
+// let n = 4;
+// let rowArray = Array(n).fill(false);
+// let colArray = Array(n).fill(false);
+// let diagArray = Array(n + n -1).fill(false);
+// let antiDiagArray = Array(n + n -1).fill(false);
+// console.log(NQueen2(n, 0, n, ''));
+
+/*------------------------------------------------------------------------------------- */
+
+function toggleNQueen(r, c, n) {
+  rowArray[r] = !rowArray[r];
+  colArray[c] = !colArray[c];
+  diagArray[r-c+n-1] = !diagArray[r-c+n-1];
+  antiDiagArray[r+c] = !antiDiagArray[r+c];
+}
+
+function NQueen3_Permutation(boxes, tnq, ans) {
+  if(tnq === 0) {
+    console.log(ans);
+    return 1;
+  }
+
+  let count = 0;
+  let n = boxes.length;
+  for(let i = 0; i<n*n; i++) {
+    let r = Math.floor(i/n);
+    let c = i%n;
+    if(!boxes[r][c] && !rowArray[r] && !colArray[c] && !diagArray[r-c+n-1] && !antiDiagArray[r+c]) {
+      boxes[r][c] = true;
+      toggleNQueen(r, c, n);
+      count += NQueen3_Permutation(boxes, tnq-1, ans+'('+r+', '+c+') ');
+      toggleNQueen(r, c, n);
+      boxes[r][c] = false;
+    }
+  }
+  return count;
+}
+
 let n = 4;
 let rowArray = Array(n).fill(false);
 let colArray = Array(n).fill(false);
 let diagArray = Array(n + n -1).fill(false);
 let antiDiagArray = Array(n + n -1).fill(false);
-console.log(NQueen2(n, 0, n, ''));
+// let boxes = Array(n).fill().map(() => Array(n).fill(false));
+// console.log(NQueen3_Permutation(boxes, n, ''));
