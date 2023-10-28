@@ -1126,3 +1126,47 @@ function nQueen4(n, r, tnq, ans) {
 // console.log(nQueen4(n, 0, n, ''));
 
 /*-------------------------------------------------------------------------------------*/
+// 52. N-Queens II same as above question nqueen4
+
+var totalNQueens = function(n) {
+  let colArr = Array(n).fill(false);
+  let dia = Array(n+n-1).fill(false);
+  let aDia = Array(n+n-1).fill(false);
+
+  function nQueen(n, r, tnq) {
+      if(tnq === 0) {
+          return 1;
+      }
+
+      let count = 0;
+      for(let c =0; c < n; c++) {
+          if(!colArr[c] && !dia[r-c+n-1] && !aDia[r+c]) {
+              toggleQueen(r,c,n);
+              count += nQueen(n, r+1, tnq-1);
+              toggleQueen(r,c,n);
+          }
+      }
+      return count;
+  }
+
+  function toggleQueen(r, c, n) {
+      colArr[c] = !colArr[c];
+      dia[r-c+n-1] = !dia[r-c+n-1];
+      aDia[r+c] = !aDia[r+c];
+  }
+
+  return nQueen(n, 0, n);
+};
+
+/*-------------------------------------------------------------------------------------*/
+
+// LC 191. Number of 1 Bits
+var hammingWeight = function(n) {
+  let count = 0;
+  for(let i =0; i<32; i++) {
+      let mask = (1 << i)
+      if((n & mask) != 0) count ++;
+  }
+  return count;
+};
+
